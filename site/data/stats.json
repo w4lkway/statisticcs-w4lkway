@@ -1,0 +1,146 @@
+{
+  "updatedAt": "2026-11-07T15:00:00Z",
+  "sources": {},
+  "profile": {
+    "nick": "w4lkway",
+    "birthday": "2000-10-07",
+    "city": "Санкт-Петербург"
+  },
+  "cs2": {
+    "steam": {
+      "name": "dojyaan",
+      "steamId": "76561198445993964",
+      "level": 32,
+      "accountAgeYears": 8,
+      "playtimeHours": 1127
+    },
+    "faceit": {
+      "nickname": "w4lkway",
+      "country": "RU",
+      "joined": "январь 2022",
+      "lastMatch": "5 авг 2026",
+      "elo": 783,
+      "matches": 107,
+      "winRate": 45.8,
+      "kd": 0.88,
+      "hs": 45,
+      "adr": 79.1,
+      "clutch1v1": 44,
+      "clutch1v2": 23,
+      "udr": 1.2,
+      "recent": ["W", "W", "W", "L", "W"]
+    },
+    "premier": {
+      "season": "S5",
+      "rank": "Unranked",
+      "matches": 1530,
+      "kd": 0.88,
+      "hs": 50,
+      "recent": ["L", "L", "W", "L", "L", "L", "L", "L", "L", "L"]
+    },
+    "leetify": {
+      "matches": 30,
+      "aim": 44.0,
+      "aimTop": 73,
+      "utility": 10.3,
+      "utilityTop": 98,
+      "rating": -2.13,
+      "ct": -3.17,
+      "t": -1.17,
+      "aimsLike": 6000,
+      "utilityLike": 500
+    },
+    "scope": {
+      "matches": 19,
+      "avgTtd": 576,
+      "avgTtdTop": 24,
+      "currentTtd": 557,
+      "currentTtdTop": 29,
+      "fastestTtd": 513,
+      "fastestTtdTop": 43,
+      "fastRounds": 0,
+      "fastRoundsTop": 100,
+      "suspicious": 0,
+      "inhuman": 0
+    },
+    "weaponKills": [
+      { "name": "AWP", "kills": 4800 },
+      { "name": "AK-47", "kills": 4500 },
+      { "name": "M4A1", "kills": 3200 },
+      { "name": "Desert Eagle", "kills": 2100 },
+      { "name": "P2000", "kills": 1500 }
+    ],
+    "weaponHs": [
+      { "name": "AWP", "hs": 26 },
+      { "name": "SSG 08", "hs": 24 },
+      { "name": "Desert Eagle", "hs": 22 },
+      { "name": "G3SG1", "hs": 22 },
+      { "name": "MP9", "hs": 21 }
+    ],
+    "recentMatches": [
+      { "map": "Cache", "score": "3–7", "date": "31 окт 2026", "result": "l" },
+      { "map": "Dust2", "score": "11–13", "date": "31 окт 2026", "result": "l" },
+      { "map": "Inferno", "score": "6–13", "date": "31 окт 2026", "result": "l" },
+      { "map": "Mirage", "score": "12–12", "date": "29 окт 2026", "result": "d" },
+      { "map": "Nuke", "score": "6–13", "date": "29 окт 2026", "result": "l" }
+    ]
+  },
+  "dota": {
+    "profileName": "211",
+    "matches": 1631,
+    "wins": 803,
+    "losses": 828,
+    "winRate": 49.23,
+    "ranked": { "matches": 1070, "winRate": 48.22 },
+    "roles": { "core": 67, "support": 33 },
+    "lobby": [
+      { "name": "Рейтинговые", "matches": 1070, "winRate": 48.22 },
+      { "name": "Обычные", "matches": 558, "winRate": 51.08 }
+    ],
+    "mode": [
+      { "name": "All Pick", "matches": 1093, "winRate": 48.03 },
+      { "name": "Другие", "matches": 63, "winRate": 66.67 }
+    ],
+    "side": [
+      { "name": "Свет", "matches": 842, "winRate": 50.24 },
+      { "name": "Тьма", "matches": 789, "winRate": 48.16 }
+    ],
+    "region": [
+      { "name": "Россия", "matches": 1180, "winRate": 50.25 },
+      { "name": "Вост. Европа", "matches": 156, "winRate": 46.79 },
+      { "name": "Вост. Америка", "matches": 1, "winRate": 0 }
+    ],
+    "heroes": [
+      { "name": "Earthshaker", "matches": 115, "winRate": 51.30, "kda": 3.07, "role": "core", "lane": "Средняя линия" },
+      { "name": "Shadow Fiend", "matches": 56, "winRate": 44.64, "kda": 2.37, "role": "core", "lane": "Средняя линия" },
+      { "name": "Phantom Assassin", "matches": 48, "winRate": 45.83, "kda": 2.38, "role": "core", "lane": "Лёгкая линия" },
+      { "name": "Anti-Mage", "matches": 38, "winRate": 50.00, "kda": 2.63, "role": "core", "lane": "Лёгкая линия" },
+      { "name": "Pudge", "matches": 35, "winRate": 54.29, "kda": 2.13, "role": "sup", "lane": "Сложная линия" },
+      { "name": "Phantom Lancer", "matches": 30, "winRate": 53.33, "kda": 2.61, "role": "core", "lane": "Лёгкая линия" },
+      { "name": "Techies", "matches": 26, "winRate": 38.46, "kda": 1.78, "role": "sup", "lane": "Средняя линия" },
+      { "name": "Legion Commander", "matches": 26, "winRate": 65.38, "kda": 2.99, "role": "core", "lane": "Сложная линия" },
+      { "name": "Axe", "matches": 25, "winRate": 76.00, "kda": 3.55, "role": "core", "lane": "Сложная линия" },
+      { "name": "Wraith King", "matches": 24, "winRate": 54.17, "kda": 3.31, "role": "core", "lane": "Сложная линия" }
+    ]
+  },
+  "fortnite": {
+    "minutesPlayed": 19748,
+    "overall": {
+      "matches": 2716,
+      "wins": 118,
+      "winRate": 4.34,
+      "kills": 4171,
+      "kpm": 1.54,
+      "top3510": 398,
+      "top61225": 754
+    },
+    "build": { "matches": 2706, "winRate": 4.25, "wins": 115, "top3510": 394, "top61225": 749, "kills": 4123, "kpm": 1.52 },
+    "zeroBuild": { "matches": 10, "winRate": 30.0, "wins": 3, "top3510": 4, "top61225": 5, "kills": 48, "kpm": 4.8 },
+    "modes": {
+      "solo":   { "matches": 808,  "top1": 16, "winRate": 1.98, "kills": 1265, "kpm": 1.57, "topA": 115, "topB": 234 },
+      "duos":   { "matches": 1178, "top1": 41, "winRate": 3.48, "kills": 1713, "kpm": 1.45, "topA": 159, "topB": 308 },
+      "trios":  { "matches": 167,  "top1": 15, "winRate": 8.98, "kills": 425,  "kpm": 2.54, "topA": 32,  "topB": 53 },
+      "squads": { "matches": 563,  "top1": 46, "winRate": 8.17, "kills": 768,  "kpm": 1.36, "topA": 92,  "topB": 159 }
+    }
+  }
+}

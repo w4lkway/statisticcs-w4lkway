@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Статистика w4lkway</title>
+<meta name="description" content="Личная игровая статистика w4lkway: CS2, Dota 2, Fortnite.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: sticky tab bar, one panel per game. Each game re-tints the page through --accent
+   (CS2 amber, Dota crimson, Fortnite violet). Home is a player dossier with three entry cards.
+   All numbers come from data/stats.json, which the GitHub Action refreshes. */
+:root{
+  --bg:#0e0f13; --surface:#15171c; --surface-2:#1c1f26; --line:#262a33; --line-strong:#3a404d;
+  --fg:#eceef3; --muted:#98a0ae; --faint:#6e7686;
+  --win:#58d49a; --loss:#ff7070; --draw:#98a0ae;
+  --c-home:#eceef3; --c-cs2:#f2b04a; --c-dota:#ff6868; --c-fn:#a798ff;
+  --on-accent:#0e0f13;
+  --accent:var(--c-home);
+  --font-display:'Unbounded','Trebuchet MS',system-ui,sans-serif;
+  --font-body:'Onest',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --bg:#f3f4f7; --surface:#ffffff; --surface-2:#eceef3; --line:#dde0e7; --line-strong:#bfc5d1;
+    --fg:#15171c; --muted:#566070; --faint:#7b8494;
+    --win:#12774b; --loss:#c3262c; --draw:#566070;
+    --c-home:#15171c; --c-cs2:#9a5900; --c-dota:#c3262c; --c-fn:#5740d4;
+    --on-accent:#ffffff; color-scheme:light;
+  }
+}
+:root[data-theme="light"]{
+  --bg:#f3f4f7; --surface:#ffffff; --surface-2:#eceef3; --line:#dde0e7; --line-strong:#bfc5d1;
+  --fg:#15171c; --muted:#566070; --faint:#7b8494;
+  --win:#12774b; --loss:#c3262c; --draw:#566070;
+  --c-home:#15171c; --c-cs2:#9a5900; --c-dota:#c3262c; --c-fn:#5740d4;
+  --on-accent:#ffffff; color-scheme:light;
+}
+body[data-game="cs2"]{--accent:var(--c-cs2)}
+body[data-game="dota"]{--accent:var(--c-dota)}
+body[data-game="fn"]{--accent:var(--c-fn)}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:15px;line-height:1.5}
+a{color:inherit}
+h1,h2,h3,p,dl,dd{margin:0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.top-in{display:flex;align-items:center;flex-wrap:wrap;gap:8px 24px;padding-block:10px}
+.brand{font-family:var(--font-display);font-weight:700;font-size:16px;letter-spacing:-.02em;text-decoration:none}
+.tabs{display:flex;gap:4px;margin-left:auto;min-width:0;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{appearance:none;border:0;background:transparent;color:var(--muted);font:500 14px var(--font-body);padding:9px 14px;border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;position:relative;transition:color .15s,background .15s}
+.tab i{width:8px;height:8px;border-radius:2px;background:var(--tc,var(--fg));flex:none}
+.tab:hover{color:var(--fg)}
+.tab[aria-selected="true"]{color:var(--fg);background:var(--surface-2)}
+.tab[aria-selected="true"]::after{content:"";position:absolute;left:14px;right:14px;bottom:2px;height:2px;border-radius:2px;background:var(--tc,var(--fg))}
+@media (max-width:640px){.tabs{margin-left:0;flex:1 1 100%}}
+
+main{padding-block:28px 56px;padding-bottom:max(56px,env(safe-area-inset-bottom,0px))}
+.label{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.h2{font-family:var(--font-display);font-weight:500;font-size:17px;letter-spacing:-.01em;margin:40px 0 14px}
+
+.nick{font-family:var(--font-display);font-weight:700;font-size:clamp(44px,12.5vw,116px);line-height:1;letter-spacing:-.05em;margin-top:12px;overflow-wrap:anywhere}
+.stripe{display:flex;gap:4px;margin-top:22px;max-width:340px}
+.stripe b{flex:1;height:6px;border-radius:3px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:20px 28px;margin-top:34px;padding-top:22px;border-top:1px solid var(--line)}
+.facts dt{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.facts dd{font-size:18px;font-weight:500}
+.facts dd small{color:var(--muted);font-weight:400;font-size:15px}
+
+.gcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
+.gcard{display:flex;flex-direction:column;gap:18px;padding:20px;background:var(--surface);border:1px solid var(--line);border-radius:14px;text-decoration:none;min-width:0;transition:border-color .15s,background .15s}
+.gcard:hover{border-color:var(--tc);background:var(--surface-2)}
+.gc-top{display:flex;align-items:center;gap:10px}
+.gc-top i{width:10px;height:10px;border-radius:3px;background:var(--tc);flex:none}
+.gc-top h3{font-family:var(--font-display);font-weight:500;font-size:16px;letter-spacing:-.01em}
+.gc-sub{color:var(--muted);font-size:13px;margin-top:-10px}
+.gc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.gc-stats b{display:block;font-family:var(--font-display);font-weight:500;font-size:19px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.gc-stats span{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.gc-go{margin-top:auto;color:var(--tc);font-weight:600;font-size:14px}
+
+.ghead{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 24px;margin-bottom:24px}
+.gtitle{font-family:var(--font-display);font-weight:700;font-size:clamp(30px,6vw,54px);line-height:1.05;letter-spacing:-.04em;margin-top:10px;text-wrap:balance}
+.gtitle::after{content:"";display:block;width:64px;height:5px;border-radius:3px;background:var(--accent);margin-top:16px}
+.gmeta{display:flex;flex-wrap:wrap;gap:8px}
+.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line-strong);border-radius:999px;padding:5px 12px;font-size:13px;color:var(--muted);text-decoration:none;white-space:nowrap}
+.pill b{color:var(--fg);font-weight:500}
+a.pill:hover{border-color:var(--accent);color:var(--fg)}
+
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));gap:12px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;min-width:0}
+.tile .v{font-family:var(--font-display);font-weight:500;font-size:clamp(22px,2.6vw,30px);letter-spacing:-.03em;margin-top:8px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.tile .v.hl{color:var(--accent)}
+.tile .s{color:var(--muted);font-size:13px;margin-top:4px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:12px;margin-top:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;min-width:0}
+.card-h{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:4px 12px;margin-bottom:16px}
+.card-h h3{font-size:15px;font-weight:600}
+.card-h span{font-family:var(--font-mono);font-size:12px;color:var(--muted)}
+.note{color:var(--muted);font-size:13px;margin-top:14px}
+.err{border-color:var(--loss)}
+
+.kv{display:grid}
+.kv div{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line)}
+.kv div:last-child{border-bottom:0}
+.kv dt{color:var(--muted)}
+.kv dd{font-family:var(--font-mono);font-size:14px;font-variant-numeric:tabular-nums;text-align:right}
+.sub-h{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:18px 0 10px}
+.sub-h:first-child{margin-top:0}
+
+.brows{display:grid;gap:13px}
+.brow{display:grid;grid-template-columns:minmax(92px,128px) minmax(0,1fr) minmax(46px,auto);gap:12px;align-items:center}
+.brow .n{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.brow .n small{color:var(--faint);font-family:var(--font-mono);font-size:12px}
+.brow .x{font-family:var(--font-mono);font-size:13px;text-align:right;font-variant-numeric:tabular-nums}
+.track{height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden;position:relative}
+.fill{display:block;height:100%;width:var(--w);background:var(--mc,var(--accent));border-radius:4px}
+.track.mid::after{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--line-strong)}
+.axis{font-family:var(--font-mono);font-size:11px;color:var(--faint);margin-top:12px}
+
+.seg{display:flex;gap:3px;height:14px;border-radius:7px;overflow:hidden;background:var(--surface-2)}
+.seg i{flex-grow:var(--g);flex-basis:0;min-width:3px;background:var(--sc)}
+.legend{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:16px;font-size:13px}
+.legend span{display:inline-flex;align-items:center;gap:8px;color:var(--muted)}
+.legend em{width:10px;height:10px;border-radius:3px;background:var(--sc);flex:none}
+.legend b{font-family:var(--font-mono);font-weight:500;color:var(--fg);font-variant-numeric:tabular-nums}
+
+.form{display:flex;flex-wrap:wrap;gap:6px}
+.res{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:7px;font:500 12px var(--font-mono)}
+.res.w{background:color-mix(in srgb,var(--win) 18%,transparent);color:var(--win)}
+.res.l{background:color-mix(in srgb,var(--loss) 18%,transparent);color:var(--loss)}
+.res.d{background:var(--surface-2);color:var(--draw)}
+
+.matches{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));gap:12px}
+.match{position:relative;overflow:hidden;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 16px 16px;min-width:0}
+.match::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--rc)}
+.match .map{font-family:var(--font-display);font-weight:500;font-size:14px;letter-spacing:-.01em}
+.match .sc{font-family:var(--font-mono);font-weight:500;font-size:28px;margin:10px 0 6px;font-variant-numeric:tabular-nums}
+.match .dt{display:flex;justify-content:space-between;gap:8px;color:var(--muted);font-size:13px}
+.match .rs{color:var(--rc);font-weight:600}
+
+.trio{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,120px),1fr));gap:14px;margin-bottom:6px}
+.trio b{display:block;font-family:var(--font-display);font-weight:500;font-size:22px;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.trio span{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+
+.ctl{display:inline-flex;gap:4px;padding:4px;background:var(--surface-2);border-radius:10px;flex-wrap:wrap}
+.ctl button{appearance:none;border:0;background:transparent;color:var(--muted);font:500 13px var(--font-body);padding:6px 12px;border-radius:7px;cursor:pointer}
+.ctl button[aria-pressed="true"]{background:var(--surface);color:var(--fg);box-shadow:0 0 0 1px var(--line-strong)}
+.hhead,.hrow{display:grid;grid-template-columns:32px minmax(120px,1.2fr) minmax(130px,1.5fr) 76px 54px minmax(190px,1.6fr);gap:12px;align-items:center}
+.hhead{padding:0 4px 10px;border-bottom:1px solid var(--line)}
+.hrow{padding:11px 4px;border-bottom:1px solid var(--line)}
+.hrow:last-child{border-bottom:0}
+.hrow .rk{font-family:var(--font-mono);color:var(--faint);font-size:13px}
+.hrow .nm{font-weight:600;overflow-wrap:anywhere}
+.hrow .mt{display:flex;align-items:center;gap:10px;min-width:0}
+.hrow .mt .track{flex:1;min-width:0}
+.hrow .mt b{font-family:var(--font-mono);font-weight:500;font-size:13px;width:30px;text-align:right;font-variant-numeric:tabular-nums}
+.hrow .wr,.hrow .kd{font-family:var(--font-mono);font-size:13px;font-variant-numeric:tabular-nums}
+.hrow .wr.up{color:var(--win)}
+.hrow .wr.dn{color:var(--loss)}
+.hrow .tags{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;font-size:13px;color:var(--muted)}
+.role{display:inline-block;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600}
+.role.core{background:color-mix(in srgb,var(--accent) 18%,transparent);color:var(--accent)}
+.role.sup{border:1px solid var(--line-strong);color:var(--muted)}
+@media (max-width:760px){
+  .hhead{display:none}
+  .hrow{grid-template-columns:24px minmax(0,1fr) auto auto;grid-template-areas:"rk nm wr kd" ". mt mt mt" ". tg tg tg";gap:8px 12px}
+  .hrow .rk{grid-area:rk}.hrow .nm{grid-area:nm}.hrow .wr{grid-area:wr}.hrow .kd{grid-area:kd}.hrow .mt{grid-area:mt}.hrow .tags{grid-area:tg}
+  .hrow .wr::before{content:"WR ";color:var(--faint)}
+  .hrow .kd::before{content:"KDA ";color:var(--faint)}
+}
+
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px}
+.mode{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;min-width:0}
+.mbadge{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:16px}
+.mbadge b{font-family:var(--font-display);font-weight:700;font-size:15px;letter-spacing:-.01em;background:var(--mc);color:#101116;padding:6px 12px;border-radius:8px}
+.mbadge span{font-family:var(--font-mono);font-size:12px;color:var(--muted)}
+.mgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 12px}
+.mgrid span{display:block;color:var(--muted);font-size:12px}
+.mgrid b{display:block;font-family:var(--font-mono);font-weight:500;font-size:16px;margin-top:1px;font-variant-numeric:tabular-nums}
+
+footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);color:var(--faint);font-size:13px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px}
+</style>
+</head>
+<body data-game="home">
+
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="#home">w4lkway</a>
+    <nav class="tabs" role="tablist" aria-label="Разделы">
+      <button class="tab" role="tab" id="t-home" data-tab="home" aria-controls="p-home" aria-selected="true"><i></i>Профиль</button>
+      <button class="tab" role="tab" id="t-cs2" data-tab="cs2" aria-controls="p-cs2" aria-selected="false" style="--tc:var(--c-cs2)"><i></i>CS2</button>
+      <button class="tab" role="tab" id="t-dota2" data-tab="dota2" aria-controls="p-dota2" aria-selected="false" style="--tc:var(--c-dota)"><i></i>Dota 2</button>
+      <button class="tab" role="tab" id="t-fortnite" data-tab="fortnite" aria-controls="p-fortnite" aria-selected="false" style="--tc:var(--c-fn)"><i></i>Fortnite</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="panel" id="p-home" role="tabpanel" aria-labelledby="t-home"><p class="label">Загружаю статистику…</p></section>
+  <section class="panel" id="p-cs2" role="tabpanel" aria-labelledby="t-cs2" hidden></section>
+  <section class="panel" id="p-dota2" role="tabpanel" aria-labelledby="t-dota2" hidden></section>
+  <section class="panel" id="p-fortnite" role="tabpanel" aria-labelledby="t-fortnite" hidden></section>
+  <noscript><p class="note">Для просмотра статистики нужен JavaScript.</p></noscript>
+  <footer id="foot"></footer>
+</main>
+
+<script>
+(function(){
+  'use strict';
+  var TABS=['home','cs2','dota2','fortnite'];
+  var GAME={home:'home',cs2:'cs2',dota2:'dota',fortnite:'fn'};
+  function $(id){return document.getElementById(id)}
+
+  /* ---------- formatting ---------- */
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function ok(x){return x!==null&&x!==undefined&&x!==''&&!(typeof x==='number'&&isNaN(x))}
+  function fmt(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' ')}
+  function int(x){return ok(x)?fmt(Math.round(x)):'—'}
+  function num(x,d){return ok(x)?Number(x).toFixed(d):'—'}
+  function pct(x,d){return ok(x)?Number(x).toFixed(d==null?2:d)+'%':'—'}
+  function minus(s){return String(s).replace('-','−')}
+  function years(n){var m=n%100,d=n%10;if(m>10&&m<20)return'лет';if(d===1)return'год';if(d>=2&&d<=4)return'года';return'лет'}
+  function hm(min){if(!ok(min))return'—';var h=Math.floor(min/60);return fmt(h)+' ч '+(min%60)+' мин'}
+  function stamp(iso){
+    if(!iso)return '—';
+    var d=new Date(iso);if(isNaN(d))return '—';
+    return d.toLocaleString('ru-RU',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+  }
+  function niceMax(max,steps){for(var i=0;i<steps.length;i++){if(steps[i]>=max)return steps[i]}return Math.ceil(max)}
+  var STEPS=[1,2,2.5,3,4,5,10,15,20,25,30,40,50,60,80,100];
+
+  /* ---------- building blocks ---------- */
+  function kv(rows){
+    return '<dl class="kv">'+rows.map(function(r){return '<div><dt>'+r[0]+'</dt><dd>'+r[1]+'</dd></div>'}).join('')+'</dl>';
+  }
+  function brow(name,w,val,o){
+    o=o||{};
+    return '<div class="brow"'+(o.color?' style="--mc:'+o.color+'"':'')+'><span class="n">'+name+'</span>'+
+      '<span class="track'+(o.mid?' mid':'')+'"><span class="fill" style="--w:'+Math.max(0,Math.min(100,w)).toFixed(1)+'%"></span></span>'+
+      '<span class="x">'+val+'</span></div>';
+  }
+  function chips(list){
+    return (list||[]).map(function(r){
+      var c=r==='W'?'w':r==='L'?'l':'d';
+      return '<span class="res '+c+'" title="'+(r==='W'?'Победа':r==='L'?'Поражение':'Ничья')+'">'+esc(r)+'</span>';
+    }).join('')||'<span class="note" style="margin:0">нет данных</span>';
+  }
+  function tile(label,value,sub,hl){
+    return '<div class="tile"><p class="label">'+label+'</p><p class="v'+(hl?' hl':'')+'">'+value+'</p><p class="s">'+sub+'</p></div>';
+  }
+  function fresh(d,names){
+    var best=null;
+    names.forEach(function(n){var s=d.sources&&d.sources[n];if(s&&s.ok&&s.updatedAt&&(!best||s.updatedAt>best))best=s.updatedAt});
+    return best||d.updatedAt;
+  }
+  function wrRow(x){
+    return brow(esc(x.name)+' <small>'+int(x.matches)+'</small>',ok(x.winRate)?x.winRate:0,pct(x.winRate),{mid:true});
+  }
+
+  /* ---------- panels ---------- */
+  function renderHome(d){
+    var p=d.profile||{},cs=d.cs2||{},dt=d.dota||{},fn=d.fortnite||{};
+    var f=cs.faceit||{},st=cs.steam||{},ov=fn.overall||{},roles=dt.roles||{};
+    var age='',bd='—';
+    if(p.birthday){
+      var m=String(p.birthday).split('-'),y=+m[0],mo=+m[1],da=+m[2],now=new Date(),a=now.getFullYear()-y;
+      if(now.getMonth()+1<mo||(now.getMonth()+1===mo&&now.getDate()<da))a--;
+      bd=(da<10?'0':'')+da+'.'+(mo<10?'0':'')+mo+'.'+y;age=a+' '+years(a);
+    }
+    return ''+
+    '<p class="label">Профиль игрока</p>'+
+    '<h1 class="nick">'+esc(p.nick)+'</h1>'+
+    '<div class="stripe" aria-hidden="true"><b style="background:var(--c-cs2)"></b><b style="background:var(--c-dota)"></b><b style="background:var(--c-fn)"></b></div>'+
+    '<dl class="facts">'+
+      '<div><dt>Ник</dt><dd>'+esc(p.nick)+'</dd></div>'+
+      '<div><dt>День рождения</dt><dd>'+bd+(age?' <small>· '+age+'</small>':'')+'</dd></div>'+
+      '<div><dt>Родился</dt><dd>'+esc(p.city)+'</dd></div>'+
+      '<div><dt>Играет в</dt><dd>CS2, Dota 2, Fortnite</dd></div>'+
+    '</dl>'+
+    '<h2 class="h2">Статистика по играм</h2>'+
+    '<div class="gcards">'+
+      '<a class="gcard" href="#cs2" style="--tc:var(--c-cs2)"><div class="gc-top"><i></i><h3>Counter-Strike 2</h3></div>'+
+        '<p class="gc-sub">Steam · FACEIT · Premier · Leetify</p>'+
+        '<div class="gc-stats"><div><b>'+int(st.playtimeHours)+'</b><span>часов в игре</span></div><div><b>'+int(f.elo)+'</b><span>FACEIT ELO</span></div><div><b>'+num(f.kd,2)+'</b><span>K/D</span></div></div>'+
+        '<span class="gc-go">Открыть статистику →</span></a>'+
+      '<a class="gcard" href="#dota2" style="--tc:var(--c-dota)"><div class="gc-top"><i></i><h3>Dota 2</h3></div>'+
+        '<p class="gc-sub">Матчи, герои, роли и линии</p>'+
+        '<div class="gc-stats"><div><b>'+int(dt.matches)+'</b><span>матчей</span></div><div><b>'+pct(dt.winRate,1)+'</b><span>винрейт</span></div><div><b>'+(ok(roles.core)?roles.core+'%':'—')+'</b><span>игр на кор</span></div></div>'+
+        '<span class="gc-go">Открыть статистику →</span></a>'+
+      '<a class="gcard" href="#fortnite" style="--tc:var(--c-fn)"><div class="gc-top"><i></i><h3>Fortnite</h3></div>'+
+        '<p class="gc-sub">Battle Royale · Solo, Duos, Trios, Squads</p>'+
+        '<div class="gc-stats"><div><b>'+int(ov.wins)+'</b><span>побед</span></div><div><b>'+num(ov.kpm,2)+'</b><span>убийств за матч</span></div><div><b>'+(ok(fn.minutesPlayed)?fmt(Math.floor(fn.minutesPlayed/60)):'—')+'</b><span>часов в игре</span></div></div>'+
+        '<span class="gc-go">Открыть статистику →</span></a>'+
+    '</div>';
+  }
+
+  function renderCs2(d){
+    var c=d.cs2||{},st=c.steam||{},f=c.faceit||{},pr=c.premier||{},lf=c.leetify||{},sc=c.scope||{};
+    var kills=c.weaponKills||[],hs=c.weaponHs||[],rm=c.recentMatches||[];
+    var maxK=Math.max.apply(null,kills.map(function(w){return w.kills}).concat([1]));
+    var hsMax=niceMax(Math.max.apply(null,hs.map(function(w){return w.hs}).concat([1])),STEPS);
+    var steamLink=st.steamId?'<a class="pill" href="https://steamcommunity.com/profiles/'+esc(st.steamId)+'" target="_blank" rel="noopener">Steam <b>'+esc(st.name)+'</b> ↗</a>':'';
+    return ''+
+    '<div class="ghead"><div><p class="label">Статистика</p><h1 class="gtitle">Counter-Strike 2</h1></div>'+
+      '<div class="gmeta">'+steamLink+'<span class="pill">FACEIT <b>'+esc(f.nickname)+'</b>'+(f.country?' · '+esc(f.country):'')+'</span><span class="pill">Обновлено <b>'+stamp(fresh(d,['steam','faceit','leetify']))+'</b></span></div></div>'+
+    '<div class="tiles">'+
+      tile('Время в игре',int(st.playtimeHours)+' ч',(ok(st.accountAgeYears)?'Аккаунту '+st.accountAgeYears+' '+years(st.accountAgeYears):'')+(ok(st.level)?' · уровень Steam '+st.level:''),true)+
+      tile('FACEIT ELO',int(f.elo),int(f.matches)+' матчей')+
+      tile('Premier'+(pr.season?', сезон '+esc(String(pr.season).replace(/^S/,'')):''),esc(pr.rank||'—'),int(pr.matches)+' матчей')+
+      tile('Время до урона',ok(sc.avgTtd)?sc.avgTtd+' мс':'—',ok(sc.avgTtdTop)?'Топ '+sc.avgTtdTop+'% по скорости реакции':'')+
+    '</div>'+
+    '<div class="cols">'+
+      '<article class="card"><div class="card-h"><h3>FACEIT</h3><span>'+(f.joined?'с '+esc(f.joined):'')+(f.lastMatch?' · последний матч '+esc(f.lastMatch):'')+'</span></div>'+
+        kv([['ELO',int(f.elo)],['Матчи',int(f.matches)],['Винрейт',pct(f.winRate,1)],['K/D',num(f.kd,2)],['HS%',ok(f.hs)?f.hs+'%':'—'],['ADR',num(f.adr,1)],['1v1 / 1v2',(ok(f.clutch1v1)?f.clutch1v1+'%':'—')+' / '+(ok(f.clutch1v2)?f.clutch1v2+'%':'—')],['UDR',num(f.udr,1)]])+
+        '<p class="sub-h">Последние '+((f.recent||[]).length||5)+' матчей</p><div class="form">'+chips(f.recent)+'</div></article>'+
+      '<article class="card"><div class="card-h"><h3>Premier</h3><span>'+(pr.season?'сезон '+esc(String(pr.season).replace(/^S/,'')):'')+'</span></div>'+
+        kv([['Ранг',esc(pr.rank||'—')],['Матчи',int(pr.matches)],['K/D',num(pr.kd,2)],['HS%',ok(pr.hs)?pr.hs+'%':'—']])+
+        '<p class="sub-h">Последние '+((pr.recent||[]).length||10)+' матчей</p><div class="form">'+chips(pr.recent)+'</div></article>'+
+    '</div>'+
+    '<div class="cols">'+
+      '<article class="card"><div class="card-h"><h3>Leetify</h3><span>'+int(lf.matches)+' последних игр</span></div>'+
+        '<div class="brows">'+brow('Aim',ok(lf.aim)?lf.aim:0,num(lf.aim,1))+brow('Utility',ok(lf.utility)?lf.utility:0,num(lf.utility,1))+'</div>'+
+        '<p class="axis">Шкала 0–100'+(ok(lf.aimTop)?' · Aim: топ '+lf.aimTop+'%':'')+(ok(lf.utilityTop)?' · Utility: топ '+lf.utilityTop+'%':'')+'</p>'+
+        '<div style="margin-top:12px">'+kv([['Leetify Rating',ok(lf.rating)?minus(num(lf.rating,2)):'—'],['CT / T',(ok(lf.ct)?minus(num(lf.ct,2)):'—')+' / '+(ok(lf.t)?minus(num(lf.t,2)):'—')],['Aims like',int(lf.aimsLike)],['Utility like',int(lf.utilityLike)]])+'</div></article>'+
+      '<article class="card"><div class="card-h"><h3>Scope.gg</h3><span>'+int(sc.matches)+' матчей · данные вручную</span></div>'+
+        '<div class="trio">'+
+          '<div><b>'+(ok(sc.avgTtd)?sc.avgTtd+' мс':'—')+'</b><span>Avg TTD'+(ok(sc.avgTtdTop)?' · топ '+sc.avgTtdTop+'%':'')+'</span></div>'+
+          '<div><b>'+(ok(sc.currentTtd)?sc.currentTtd+' мс':'—')+'</b><span>Current TTD'+(ok(sc.currentTtdTop)?' · топ '+sc.currentTtdTop+'%':'')+'</span></div>'+
+          '<div><b>'+(ok(sc.fastestTtd)?sc.fastestTtd+' мс':'—')+'</b><span>Fastest'+(ok(sc.fastestTtdTop)?' · топ '+sc.fastestTtdTop+'%':'')+'</span></div>'+
+        '</div>'+
+        '<div style="margin-top:10px">'+kv([['Fast rounds',(ok(sc.fastRounds)?sc.fastRounds+'%':'—')+(ok(sc.fastRoundsTop)?' · топ '+sc.fastRoundsTop+'%':'')],['Suspicious',int(sc.suspicious)],['Inhuman',int(sc.inhuman)]])+'</div></article>'+
+    '</div>'+
+    '<h2 class="h2">Оружие</h2>'+
+    '<div class="cols" style="margin-top:0">'+
+      '<article class="card"><div class="card-h"><h3>Больше всего убийств</h3><span>всё время</span></div><div class="brows">'+
+        kills.map(function(w){return brow(esc(w.name),w.kills/maxK*100,(w.kills>=1000?num(w.kills/1000,1)+'k':int(w.kills)))}).join('')+'</div></article>'+
+      '<article class="card"><div class="card-h"><h3>Точность в голову</h3><span>HS% по оружию · данные вручную</span></div><div class="brows">'+
+        hs.map(function(w){return brow(esc(w.name),w.hs/hsMax*100,w.hs+'%')}).join('')+'</div><p class="axis">Шкала 0–'+hsMax+'%</p></article>'+
+    '</div>'+
+    '<h2 class="h2">Последние матчи</h2>'+
+    '<div class="matches">'+rm.map(function(m){
+      var col=m.result==='w'?'var(--win)':m.result==='l'?'var(--loss)':'var(--draw)';
+      var txt=m.result==='w'?'Победа':m.result==='l'?'Поражение':'Ничья';
+      return '<div class="match" style="--rc:'+col+'"><p class="map">'+esc(m.map)+'</p><p class="sc">'+esc(m.score)+'</p><p class="dt"><span>'+esc(m.date)+'</span><span class="rs">'+txt+'</span></p></div>';
+    }).join('')+'</div>';
+  }
+
+  var heroSort='m';
+  function heroRows(d){
+    var heroes=((d.dota||{}).heroes||[]).slice();
+    var idx={m:'matches',w:'winRate',k:'kda'}[heroSort];
+    heroes.sort(function(a,b){return (b[idx]||0)-(a[idx]||0)});
+    var max=Math.max.apply(null,heroes.map(function(h){return h.matches||0}).concat([1]));
+    return heroes.map(function(h,i){
+      return '<div class="hrow"><span class="rk">'+(i+1)+'</span><span class="nm">'+esc(h.name)+'</span>'+
+        '<span class="mt"><span class="track"><span class="fill" style="--w:'+((h.matches||0)/max*100).toFixed(1)+'%"></span></span><b>'+int(h.matches)+'</b></span>'+
+        '<span class="wr '+((h.winRate||0)>=50?'up':'dn')+'">'+pct(h.winRate)+'</span><span class="kd">'+num(h.kda,2)+'</span>'+
+        '<span class="tags"><span class="role '+(h.role==='sup'?'sup':'core')+'">'+(h.role==='sup'?'Саппорт':'Кор')+'</span><span>'+esc(h.lane||'')+'</span></span></div>';
+    }).join('');
+  }
+  function renderDota(d){
+    var t=d.dota||{},rk=t.ranked||{},roles=t.roles||{};
+    var total=(t.wins||0)+(t.losses||0);
+    var g=function(list){return '<div class="brows">'+(list||[]).map(wrRow).join('')+'</div>'};
+    return ''+
+    '<div class="ghead"><div><p class="label">Статистика</p><h1 class="gtitle">Dota 2</h1></div>'+
+      '<div class="gmeta">'+(t.profileName?'<span class="pill">Профиль <b>'+esc(t.profileName)+'</b></span>':'')+'<span class="pill">Обновлено <b>'+stamp(fresh(d,['opendota']))+'</b></span></div></div>'+
+    '<div class="tiles">'+
+      tile('Матчей',int(t.matches),'За всё время',true)+
+      tile('Винрейт',pct(t.winRate),int(t.wins)+' побед · '+int(t.losses)+' поражений')+
+      tile('Рейтинговые',int(rk.matches),'Винрейт '+pct(rk.winRate))+
+      tile('Роль',ok(roles.core)?roles.core+'% кор':'—',ok(roles.support)?roles.support+'% саппорт':'')+
+    '</div>'+
+    '<div class="cols">'+
+      '<article class="card"><div class="card-h"><h3>Победы и поражения</h3><span>'+int(total)+' матчей</span></div>'+
+        '<div class="seg"><i style="--g:'+(t.wins||0)+';--sc:var(--win)"></i><i style="--g:'+(t.losses||0)+';--sc:var(--loss)"></i></div>'+
+        '<div class="legend"><span><em style="--sc:var(--win)"></em>Победы <b>'+int(t.wins)+'</b></span><span><em style="--sc:var(--loss)"></em>Поражения <b>'+int(t.losses)+'</b></span></div></article>'+
+      '<article class="card"><div class="card-h"><h3>Роли</h3><span>данные вручную</span></div>'+
+        '<div class="seg"><i style="--g:'+(roles.core||0)+';--sc:var(--accent)"></i><i style="--g:'+(roles.support||0)+';--sc:var(--line-strong)"></i></div>'+
+        '<div class="legend"><span><em style="--sc:var(--accent)"></em>Кор <b>'+(ok(roles.core)?roles.core+'%':'—')+'</b></span><span><em style="--sc:var(--line-strong)"></em>Саппорт <b>'+(ok(roles.support)?roles.support+'%':'—')+'</b></span></div>'+
+        '<p class="note">Основные линии: средняя, лёгкая и сложная.</p></article>'+
+    '</div>'+
+    '<div class="cols">'+
+      '<article class="card"><div class="card-h"><h3>Лобби и режим</h3><span>матчи · винрейт</span></div><p class="sub-h">Тип лобби</p>'+g(t.lobby)+'<p class="sub-h">Режим игры</p>'+g(t.mode)+'<p class="axis">Шкала 0–100%, отметка на 50%</p></article>'+
+      '<article class="card"><div class="card-h"><h3>Сторона и регион</h3><span>матчи · винрейт · регион вручную</span></div><p class="sub-h">Сторона</p>'+g(t.side)+'<p class="sub-h">Регион</p>'+g(t.region)+'<p class="axis">Шкала 0–100%, отметка на 50%</p></article>'+
+    '</div>'+
+    '<div class="card" style="margin-top:12px"><div class="card-h"><h3>Часто выбираемые герои</h3>'+
+      '<div class="ctl" role="group" aria-label="Сортировка героев"><button type="button" data-sort="m" aria-pressed="true">По матчам</button><button type="button" data-sort="w" aria-pressed="false">По винрейту</button><button type="button" data-sort="k" aria-pressed="false">По KDA</button></div></div>'+
+      '<div class="hhead label"><span>#</span><span>Герой</span><span>Матчи</span><span>Победы</span><span>KDA</span><span>Роль и линия</span></div>'+
+      '<div id="heroes">'+heroRows(d)+'</div></div>';
+  }
+
+  var MODES=[
+    {key:'solo',n:'Solo',c:'#1ec0ff',la:'Топ 10',lb:'Топ 25'},
+    {key:'duos',n:'Duos',c:'#5cf87c',la:'Топ 5',lb:'Топ 12'},
+    {key:'trios',n:'Trios',c:'#ffae1a',la:'Топ 3',lb:'Топ 6'},
+    {key:'squads',n:'Squads',c:'#b886ff',la:'Топ 3',lb:'Топ 6'}
+  ];
+  function renderFortnite(d){
+    var f=d.fortnite||{},ov=f.overall||{},b=f.build||{},z=f.zeroBuild||{},modes=f.modes||{};
+    var accent='var(--accent)',m1='color-mix(in srgb,var(--accent) 55%,transparent)',m2='color-mix(in srgb,var(--accent) 28%,transparent)';
+    var wins=ov.wins||0,a=ov.top3510||0,bb=ov.top61225||0,rest=Math.max(0,(ov.matches||0)-wins-a-bb),tot=ov.matches||1;
+    var P=function(x){return (x/tot*100).toFixed(1)+'%'};
+    var list=MODES.filter(function(m){return modes[m.key]});
+    var winMax=niceMax(Math.max.apply(null,list.map(function(m){return modes[m.key].winRate||0}).concat([1])),STEPS);
+    var kpmMax=niceMax(Math.max.apply(null,list.map(function(m){return modes[m.key].kpm||0}).concat([1])),STEPS);
+    var bk=function(x){return kv([['Win %',pct(x.winRate)],['Победы',int(x.wins)],['Топ 3/5/10',int(x.top3510)],['Топ 6/12/25',int(x.top61225)],['Убийства',int(x.kills)],['Убийств за матч',num(x.kpm,2)]])};
+    return ''+
+    '<div class="ghead"><div><p class="label">Статистика</p><h1 class="gtitle">Fortnite</h1></div>'+
+      '<div class="gmeta"><span class="pill"><b>Battle Royale</b></span><span class="pill">Все платформы · всё время</span><span class="pill"><b>'+hm(f.minutesPlayed)+'</b> в игре</span><span class="pill">Обновлено <b>'+stamp(fresh(d,['fortnite']))+'</b></span></div></div>'+
+    '<div class="tiles">'+
+      tile('Победы',int(ov.wins),'Win rate '+pct(ov.winRate),true)+
+      tile('Матчей',int(ov.matches),'Всего в Battle Royale')+
+      tile('Убийства',int(ov.kills),'За всё время')+
+      tile('Убийств за матч',num(ov.kpm,2),'K/Match')+
+    '</div>'+
+    '<div class="card" style="margin-top:12px"><div class="card-h"><h3>Распределение мест</h3><span>'+int(ov.matches)+' матчей</span></div>'+
+      '<div class="seg" style="height:18px;border-radius:9px"><i style="--g:'+wins+';--sc:'+accent+'"></i><i style="--g:'+a+';--sc:'+m1+'"></i><i style="--g:'+bb+';--sc:'+m2+'"></i><i style="--g:'+rest+';--sc:var(--line-strong)"></i></div>'+
+      '<div class="legend">'+
+        '<span><em style="--sc:'+accent+'"></em>Топ 1 <b>'+int(wins)+' · '+P(wins)+'</b></span>'+
+        '<span><em style="--sc:'+m1+'"></em>Топ 3/5/10 <b>'+int(a)+' · '+P(a)+'</b></span>'+
+        '<span><em style="--sc:'+m2+'"></em>Топ 6/12/25 <b>'+int(bb)+' · '+P(bb)+'</b></span>'+
+        '<span><em style="--sc:var(--line-strong)"></em>Остальные <b>'+int(rest)+' · '+P(rest)+'</b></span>'+
+      '</div></div>'+
+    '<div class="cols">'+
+      '<article class="card"><div class="card-h"><h3>Build</h3><span>'+int(b.matches)+' матчей · данные вручную</span></div>'+bk(b)+'</article>'+
+      '<article class="card"><div class="card-h"><h3>Zero Build</h3><span>'+int(z.matches)+' матчей · данные вручную</span></div>'+bk(z)+'<p class="note">Выборка небольшая, поэтому проценты прыгают.</p></article>'+
+    '</div>'+
+    '<h2 class="h2">Режимы</h2>'+
+    '<div class="modes">'+list.map(function(m){var x=modes[m.key];
+      return '<article class="mode" style="--mc:'+m.c+'"><div class="mbadge"><b>'+m.n+'</b><span>'+int(x.matches)+' матчей</span></div><div class="mgrid">'+
+        '<div><span>Топ 1</span><b>'+int(x.top1)+'</b></div><div><span>Win %</span><b>'+pct(x.winRate)+'</b></div>'+
+        '<div><span>Убийства</span><b>'+int(x.kills)+'</b></div><div><span>Убийств за матч</span><b>'+num(x.kpm,2)+'</b></div>'+
+        '<div><span>'+m.la+'</span><b>'+int(x.topA)+'</b></div><div><span>'+m.lb+'</span><b>'+int(x.topB)+'</b></div></div></article>';
+    }).join('')+'</div>'+
+    '<div class="cols">'+
+      '<article class="card"><div class="card-h"><h3>Винрейт по режимам</h3><span>Win %</span></div><div class="brows">'+
+        list.map(function(m){var x=modes[m.key];return brow(m.n,(x.winRate||0)/winMax*100,pct(x.winRate),{color:m.c})}).join('')+'</div><p class="axis">Шкала 0–'+winMax+'%</p></article>'+
+      '<article class="card"><div class="card-h"><h3>Убийств за матч</h3><span>Kills/Match</span></div><div class="brows">'+
+        list.map(function(m){var x=modes[m.key];return brow(m.n,(x.kpm||0)/kpmMax*100,num(x.kpm,2),{color:m.c})}).join('')+'</div><p class="axis">Шкала 0–'+kpmMax+'</p></article>'+
+    '</div>';
+  }
+
+  /* ---------- tabs ---------- */
+  var panels=TABS.map(function(t){return $('p-'+t)});
+  var tabs=Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  function show(){
+    var h=(location.hash||'').replace('#','');
+    if(TABS.indexOf(h)<0)h='home';
+    panels.forEach(function(p){p.hidden=(p.id!=='p-'+h)});
+    tabs.forEach(function(t){t.setAttribute('aria-selected',t.getAttribute('data-tab')===h?'true':'false')});
+    document.body.setAttribute('data-game',GAME[h]);
+    window.scrollTo(0,0);
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){location.hash=t.getAttribute('data-tab')});
+    t.addEventListener('keydown',function(e){
+      var n=e.key==='ArrowRight'?i+1:e.key==='ArrowLeft'?i-1:null;
+      if(n===null)return;
+      n=(n+tabs.length)%tabs.length;tabs[n].focus();location.hash=tabs[n].getAttribute('data-tab');e.preventDefault();
+    });
+  });
+  window.addEventListener('hashchange',show);
+  show();
+
+  /* ---------- load data ---------- */
+  fetch('data/stats.json?ts='+Date.now(),{cache:'no-store'})
+    .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json()})
+    .then(function(d){
+      $('p-home').innerHTML=renderHome(d);
+      $('p-cs2').innerHTML=renderCs2(d);
+      $('p-dota2').innerHTML=renderDota(d);
+      $('p-fortnite').innerHTML=renderFortnite(d);
+      $('foot').innerHTML='<span>Автообновление раз в 6 часов: Steam, FACEIT, Leetify, OpenDota, Fortnite-API. Последнее: '+stamp(d.updatedAt)+'.</span><span>'+esc((d.profile||{}).nick)+' · '+esc((d.profile||{}).city)+'</span>';
+      var ctl=document.querySelectorAll('.ctl button');
+      Array.prototype.forEach.call(ctl,function(b){
+        b.addEventListener('click',function(){
+          heroSort=b.getAttribute('data-sort');
+          Array.prototype.forEach.call(ctl,function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});
+          $('heroes').innerHTML=heroRows(d);
+        });
+      });
+    })
+    .catch(function(e){
+      $('p-home').innerHTML='<div class="card err"><div class="card-h"><h3>Не удалось загрузить статистику</h3></div><p class="note" style="margin:0">Файл data/stats.json недоступен ('+esc(e.message)+'). Если открываешь index.html с компьютера, запусти локальный сервер: <code>python3 -m http.server</code> в папке site.</p></div>';
+    });
+})();
+</script>
+</body>
+</html>
