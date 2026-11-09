@@ -1,6 +1,11 @@
 {
-  "updatedAt": "2026-11-07T15:00:00Z",
-  "sources": {},
+  "updatedAt": "2026-11-09T13:39:25.258Z",
+  "sources": {
+    "opendota": {
+      "ok": true,
+      "updatedAt": "2026-11-09T13:39:25.257Z"
+    }
+  },
   "profile": {
     "nick": "w4lkway",
     "birthday": "2000-10-07",
@@ -28,7 +33,13 @@
       "clutch1v1": 44,
       "clutch1v2": 23,
       "udr": 1.2,
-      "recent": ["W", "W", "W", "L", "W"]
+      "recent": [
+        "W",
+        "W",
+        "W",
+        "L",
+        "W"
+      ]
     },
     "premier": {
       "season": "S5",
@@ -36,11 +47,22 @@
       "matches": 1530,
       "kd": 0.88,
       "hs": 50,
-      "recent": ["L", "L", "W", "L", "L", "L", "L", "L", "L", "L"]
+      "recent": [
+        "L",
+        "L",
+        "W",
+        "L",
+        "L",
+        "L",
+        "L",
+        "L",
+        "L",
+        "L"
+      ]
     },
     "leetify": {
       "matches": 30,
-      "aim": 44.0,
+      "aim": 44,
       "aimTop": 73,
       "utility": 10.3,
       "utilityTop": 98,
@@ -64,63 +86,230 @@
       "inhuman": 0
     },
     "weaponKills": [
-      { "name": "AWP", "kills": 4800 },
-      { "name": "AK-47", "kills": 4500 },
-      { "name": "M4A1", "kills": 3200 },
-      { "name": "Desert Eagle", "kills": 2100 },
-      { "name": "P2000", "kills": 1500 }
+      {
+        "name": "AWP",
+        "kills": 4800
+      },
+      {
+        "name": "AK-47",
+        "kills": 4500
+      },
+      {
+        "name": "M4A1",
+        "kills": 3200
+      },
+      {
+        "name": "Desert Eagle",
+        "kills": 2100
+      },
+      {
+        "name": "P2000",
+        "kills": 1500
+      }
     ],
     "weaponHs": [
-      { "name": "AWP", "hs": 26 },
-      { "name": "SSG 08", "hs": 24 },
-      { "name": "Desert Eagle", "hs": 22 },
-      { "name": "G3SG1", "hs": 22 },
-      { "name": "MP9", "hs": 21 }
+      {
+        "name": "AWP",
+        "hs": 26
+      },
+      {
+        "name": "SSG 08",
+        "hs": 24
+      },
+      {
+        "name": "Desert Eagle",
+        "hs": 22
+      },
+      {
+        "name": "G3SG1",
+        "hs": 22
+      },
+      {
+        "name": "MP9",
+        "hs": 21
+      }
     ],
     "recentMatches": [
-      { "map": "Cache", "score": "3–7", "date": "31 окт 2026", "result": "l" },
-      { "map": "Dust2", "score": "11–13", "date": "31 окт 2026", "result": "l" },
-      { "map": "Inferno", "score": "6–13", "date": "31 окт 2026", "result": "l" },
-      { "map": "Mirage", "score": "12–12", "date": "29 окт 2026", "result": "d" },
-      { "map": "Nuke", "score": "6–13", "date": "29 окт 2026", "result": "l" }
+      {
+        "map": "Cache",
+        "score": "3–7",
+        "date": "31 окт 2026",
+        "result": "l"
+      },
+      {
+        "map": "Dust2",
+        "score": "11–13",
+        "date": "31 окт 2026",
+        "result": "l"
+      },
+      {
+        "map": "Inferno",
+        "score": "6–13",
+        "date": "31 окт 2026",
+        "result": "l"
+      },
+      {
+        "map": "Mirage",
+        "score": "12–12",
+        "date": "29 окт 2026",
+        "result": "d"
+      },
+      {
+        "map": "Nuke",
+        "score": "6–13",
+        "date": "29 окт 2026",
+        "result": "l"
+      }
     ]
   },
   "dota": {
     "profileName": "211",
-    "matches": 1631,
-    "wins": 803,
-    "losses": 828,
-    "winRate": 49.23,
-    "ranked": { "matches": 1070, "winRate": 48.22 },
-    "roles": { "core": 67, "support": 33 },
+    "matches": 1042,
+    "wins": 518,
+    "losses": 524,
+    "winRate": 49.71,
+    "ranked": {
+      "matches": 886,
+      "winRate": 49.44
+    },
+    "roles": {
+      "core": 67,
+      "support": 33
+    },
     "lobby": [
-      { "name": "Рейтинговые", "matches": 1070, "winRate": 48.22 },
-      { "name": "Обычные", "matches": 558, "winRate": 51.08 }
+      {
+        "name": "Рейтинговые",
+        "matches": 886,
+        "winRate": 49.44
+      },
+      {
+        "name": "Обычные",
+        "matches": 156,
+        "winRate": 51.28
+      }
     ],
     "mode": [
-      { "name": "All Pick", "matches": 1093, "winRate": 48.03 },
-      { "name": "Другие", "matches": 63, "winRate": 66.67 }
+      {
+        "name": "All Pick",
+        "matches": 888,
+        "winRate": 49.44
+      },
+      {
+        "name": "Другие",
+        "matches": 154,
+        "winRate": 51.3
+      }
     ],
     "side": [
-      { "name": "Свет", "matches": 842, "winRate": 50.24 },
-      { "name": "Тьма", "matches": 789, "winRate": 48.16 }
+      {
+        "name": "Свет",
+        "matches": 539,
+        "winRate": 50.46
+      },
+      {
+        "name": "Тьма",
+        "matches": 503,
+        "winRate": 48.91
+      }
     ],
     "region": [
-      { "name": "Россия", "matches": 1180, "winRate": 50.25 },
-      { "name": "Вост. Европа", "matches": 156, "winRate": 46.79 },
-      { "name": "Вост. Америка", "matches": 1, "winRate": 0 }
+      {
+        "name": "Россия",
+        "matches": 1180,
+        "winRate": 50.25
+      },
+      {
+        "name": "Вост. Европа",
+        "matches": 156,
+        "winRate": 46.79
+      },
+      {
+        "name": "Вост. Америка",
+        "matches": 1,
+        "winRate": 0
+      }
     ],
     "heroes": [
-      { "name": "Earthshaker", "matches": 115, "winRate": 51.30, "kda": 3.07, "role": "core", "lane": "Средняя линия" },
-      { "name": "Shadow Fiend", "matches": 56, "winRate": 44.64, "kda": 2.37, "role": "core", "lane": "Средняя линия" },
-      { "name": "Phantom Assassin", "matches": 48, "winRate": 45.83, "kda": 2.38, "role": "core", "lane": "Лёгкая линия" },
-      { "name": "Anti-Mage", "matches": 38, "winRate": 50.00, "kda": 2.63, "role": "core", "lane": "Лёгкая линия" },
-      { "name": "Pudge", "matches": 35, "winRate": 54.29, "kda": 2.13, "role": "sup", "lane": "Сложная линия" },
-      { "name": "Phantom Lancer", "matches": 30, "winRate": 53.33, "kda": 2.61, "role": "core", "lane": "Лёгкая линия" },
-      { "name": "Techies", "matches": 26, "winRate": 38.46, "kda": 1.78, "role": "sup", "lane": "Средняя линия" },
-      { "name": "Legion Commander", "matches": 26, "winRate": 65.38, "kda": 2.99, "role": "core", "lane": "Сложная линия" },
-      { "name": "Axe", "matches": 25, "winRate": 76.00, "kda": 3.55, "role": "core", "lane": "Сложная линия" },
-      { "name": "Wraith King", "matches": 24, "winRate": 54.17, "kda": 3.31, "role": "core", "lane": "Сложная линия" }
+      {
+        "name": "Earthshaker",
+        "matches": 94,
+        "winRate": 54.26,
+        "kda": 3.14,
+        "role": "core",
+        "lane": "Средняя линия"
+      },
+      {
+        "name": "Shadow Fiend",
+        "matches": 48,
+        "winRate": 45.83,
+        "kda": 2.48,
+        "role": "core",
+        "lane": "Средняя линия"
+      },
+      {
+        "name": "Anti-Mage",
+        "matches": 36,
+        "winRate": 50,
+        "kda": 3.08,
+        "role": "core",
+        "lane": "Лёгкая линия"
+      },
+      {
+        "name": "Phantom Assassin",
+        "matches": 32,
+        "winRate": 50,
+        "kda": 2.45,
+        "role": "core",
+        "lane": "Лёгкая линия"
+      },
+      {
+        "name": "Phantom Lancer",
+        "matches": 31,
+        "winRate": 54.84,
+        "kda": 2.71,
+        "role": "core",
+        "lane": "Лёгкая линия"
+      },
+      {
+        "name": "Pudge",
+        "matches": 31,
+        "winRate": 61.29,
+        "kda": 2.24,
+        "role": "sup",
+        "lane": "Сложная линия"
+      },
+      {
+        "name": "Techies",
+        "matches": 28,
+        "winRate": 39.29,
+        "kda": 1.75,
+        "role": "sup",
+        "lane": "Средняя линия"
+      },
+      {
+        "name": "Legion Commander",
+        "matches": 22,
+        "winRate": 68.18,
+        "kda": 3.04,
+        "role": "core",
+        "lane": "Сложная линия"
+      },
+      {
+        "name": "Ursa",
+        "matches": 21,
+        "winRate": 61.9,
+        "kda": 3.08,
+        "role": "core",
+        "lane": "Средняя линия"
+      },
+      {
+        "name": "Morphling",
+        "matches": 20,
+        "winRate": 50,
+        "kda": 2.93,
+        "role": "core",
+        "lane": "Средняя линия"
+      }
     ]
   },
   "fortnite": {
@@ -134,13 +323,61 @@
       "top3510": 398,
       "top61225": 754
     },
-    "build": { "matches": 2706, "winRate": 4.25, "wins": 115, "top3510": 394, "top61225": 749, "kills": 4123, "kpm": 1.52 },
-    "zeroBuild": { "matches": 10, "winRate": 30.0, "wins": 3, "top3510": 4, "top61225": 5, "kills": 48, "kpm": 4.8 },
+    "build": {
+      "matches": 2706,
+      "winRate": 4.25,
+      "wins": 115,
+      "top3510": 394,
+      "top61225": 749,
+      "kills": 4123,
+      "kpm": 1.52
+    },
+    "zeroBuild": {
+      "matches": 10,
+      "winRate": 30,
+      "wins": 3,
+      "top3510": 4,
+      "top61225": 5,
+      "kills": 48,
+      "kpm": 4.8
+    },
     "modes": {
-      "solo":   { "matches": 808,  "top1": 16, "winRate": 1.98, "kills": 1265, "kpm": 1.57, "topA": 115, "topB": 234 },
-      "duos":   { "matches": 1178, "top1": 41, "winRate": 3.48, "kills": 1713, "kpm": 1.45, "topA": 159, "topB": 308 },
-      "trios":  { "matches": 167,  "top1": 15, "winRate": 8.98, "kills": 425,  "kpm": 2.54, "topA": 32,  "topB": 53 },
-      "squads": { "matches": 563,  "top1": 46, "winRate": 8.17, "kills": 768,  "kpm": 1.36, "topA": 92,  "topB": 159 }
+      "solo": {
+        "matches": 808,
+        "top1": 16,
+        "winRate": 1.98,
+        "kills": 1265,
+        "kpm": 1.57,
+        "topA": 115,
+        "topB": 234
+      },
+      "duos": {
+        "matches": 1178,
+        "top1": 41,
+        "winRate": 3.48,
+        "kills": 1713,
+        "kpm": 1.45,
+        "topA": 159,
+        "topB": 308
+      },
+      "trios": {
+        "matches": 167,
+        "top1": 15,
+        "winRate": 8.98,
+        "kills": 425,
+        "kpm": 2.54,
+        "topA": 32,
+        "topB": 53
+      },
+      "squads": {
+        "matches": 563,
+        "top1": 46,
+        "winRate": 8.17,
+        "kills": 768,
+        "kpm": 1.36,
+        "topA": 92,
+        "topB": 159
+      }
     }
   }
 }
