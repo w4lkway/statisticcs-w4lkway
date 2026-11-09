@@ -380,6 +380,7 @@ footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);color:v
       tile('Винрейт',pct(t.winRate),int(t.wins)+' побед · '+int(t.losses)+' поражений')+
       tile('Рейтинговые',int(rk.matches),'Винрейт '+pct(rk.winRate))+
       tile('Роль',ok(roles.core)?roles.core+'% кор':'—',ok(roles.support)?roles.support+'% саппорт':'')+
+      (ok(t.playtimeHours)?tile('Время в игре',int(t.playtimeHours)+' ч','Steam · за всё время'):'')+
     '</div>'+
     '<div class="cols">'+
       '<article class="card"><div class="card-h"><h3>Победы и поражения</h3><span>'+int(total)+' матчей</span></div>'+
