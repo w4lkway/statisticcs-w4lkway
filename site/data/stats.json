@@ -1,9 +1,13 @@
 {
-  "updatedAt": "2026-11-09T13:39:25.258Z",
+  "updatedAt": "2026-11-09T13:44:24.982Z",
   "sources": {
     "opendota": {
       "ok": true,
-      "updatedAt": "2026-11-09T13:39:25.257Z"
+      "updatedAt": "2026-11-09T13:44:24.981Z"
+    },
+    "steam": {
+      "ok": true,
+      "updatedAt": "2026-11-09T13:44:24.608Z"
     }
   },
   "profile": {
@@ -88,23 +92,23 @@
     "weaponKills": [
       {
         "name": "AWP",
-        "kills": 4800
+        "kills": 4755
       },
       {
         "name": "AK-47",
-        "kills": 4500
+        "kills": 4539
       },
       {
         "name": "M4A1",
-        "kills": 3200
+        "kills": 3240
       },
       {
         "name": "Desert Eagle",
-        "kills": 2100
+        "kills": 2127
       },
       {
         "name": "P2000",
-        "kills": 1500
+        "kills": 1501
       }
     ],
     "weaponHs": [
