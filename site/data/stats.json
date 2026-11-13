@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-11-13T06:50:50.017Z",
+  "updatedAt": "2026-11-13T19:46:54.144Z",
   "sources": {
     "opendota": {
       "ok": true,
-      "updatedAt": "2026-11-13T06:50:50.017Z"
+      "updatedAt": "2026-11-13T19:46:54.144Z"
     },
     "steam": {
       "ok": true,
-      "updatedAt": "2026-11-13T06:50:41.250Z"
+      "updatedAt": "2026-11-13T19:46:53.340Z"
     }
   },
   "profile": {
@@ -168,13 +168,13 @@
   },
   "dota": {
     "profileName": "211",
-    "matches": 1042,
-    "wins": 518,
+    "matches": 1043,
+    "wins": 519,
     "losses": 524,
-    "winRate": 49.71,
+    "winRate": 49.76,
     "ranked": {
-      "matches": 886,
-      "winRate": 49.44
+      "matches": 887,
+      "winRate": 49.49
     },
     "roles": {
       "core": 67,
@@ -183,8 +183,8 @@
     "lobby": [
       {
         "name": "Рейтинговые",
-        "matches": 886,
-        "winRate": 49.44
+        "matches": 887,
+        "winRate": 49.49
       },
       {
         "name": "Обычные",
@@ -195,8 +195,8 @@
     "mode": [
       {
         "name": "All Pick",
-        "matches": 888,
-        "winRate": 49.44
+        "matches": 889,
+        "winRate": 49.49
       },
       {
         "name": "Другие",
@@ -212,8 +212,8 @@
       },
       {
         "name": "Тьма",
-        "matches": 503,
-        "winRate": 48.91
+        "matches": 504,
+        "winRate": 49.01
       }
     ],
     "region": [
@@ -236,9 +236,9 @@
     "heroes": [
       {
         "name": "Earthshaker",
-        "matches": 94,
-        "winRate": 54.26,
-        "kda": 3.14,
+        "matches": 95,
+        "winRate": 54.74,
+        "kda": 3.15,
         "role": "core",
         "lane": "Средняя линия"
       },
