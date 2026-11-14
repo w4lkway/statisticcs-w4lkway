@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-11-14T18:09:44.354Z",
+  "updatedAt": "2026-11-14T22:28:50.863Z",
   "sources": {
     "opendota": {
       "ok": true,
-      "updatedAt": "2026-11-14T18:09:44.353Z"
+      "updatedAt": "2026-11-14T22:28:50.862Z"
     },
     "steam": {
       "ok": true,
-      "updatedAt": "2026-11-14T18:09:43.697Z"
+      "updatedAt": "2026-11-14T22:28:49.952Z"
     }
   },
   "profile": {
