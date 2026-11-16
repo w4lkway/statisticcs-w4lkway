@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-11-15T18:54:41.947Z",
+  "updatedAt": "2026-11-16T06:36:30.400Z",
   "sources": {
     "opendota": {
       "ok": true,
-      "updatedAt": "2026-11-15T18:54:41.947Z"
+      "updatedAt": "2026-11-16T06:36:30.399Z"
     },
     "steam": {
       "ok": true,
-      "updatedAt": "2026-11-15T18:54:41.231Z"
+      "updatedAt": "2026-11-16T06:36:29.606Z"
     }
   },
   "profile": {
@@ -20,7 +20,7 @@
       "name": "dojyaan",
       "steamId": "76561198445993964",
       "level": 32,
-      "accountAgeYears": 8,
+      "accountAgeYears": 9,
       "playtimeHours": 1127
     },
     "faceit": {
