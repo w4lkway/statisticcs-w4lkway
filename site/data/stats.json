@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-11-18T07:35:09.314Z",
+  "updatedAt": "2026-11-18T20:36:39.237Z",
   "sources": {
     "opendota": {
       "ok": true,
-      "updatedAt": "2026-11-18T07:35:09.314Z"
+      "updatedAt": "2026-11-18T20:36:39.237Z"
     },
     "steam": {
       "ok": true,
-      "updatedAt": "2026-11-18T07:35:08.650Z"
+      "updatedAt": "2026-11-18T20:36:38.758Z"
     }
   },
   "profile": {
@@ -21,7 +21,7 @@
       "steamId": "76561198445993964",
       "level": 32,
       "accountAgeYears": 9,
-      "playtimeHours": 1127
+      "playtimeHours": 1129
     },
     "faceit": {
       "nickname": "w4lkway",
@@ -92,23 +92,23 @@
     "weaponKills": [
       {
         "name": "AWP",
-        "kills": 4755
+        "kills": 4758
       },
       {
         "name": "AK-47",
-        "kills": 4539
+        "kills": 4555
       },
       {
         "name": "M4A1",
-        "kills": 3240
+        "kills": 3253
       },
       {
         "name": "Desert Eagle",
-        "kills": 2127
+        "kills": 2130
       },
       {
         "name": "P2000",
-        "kills": 1501
+        "kills": 1503
       }
     ],
     "weaponHs": [
