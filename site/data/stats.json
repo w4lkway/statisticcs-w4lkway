@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-11-18T20:36:39.237Z",
+  "updatedAt": "2026-11-19T07:30:27.425Z",
   "sources": {
     "opendota": {
       "ok": true,
-      "updatedAt": "2026-11-18T20:36:39.237Z"
+      "updatedAt": "2026-11-19T07:30:27.424Z"
     },
     "steam": {
       "ok": true,
-      "updatedAt": "2026-11-18T20:36:38.758Z"
+      "updatedAt": "2026-11-19T07:30:26.651Z"
     }
   },
   "profile": {
@@ -168,13 +168,13 @@
   },
   "dota": {
     "profileName": "211",
-    "matches": 1045,
+    "matches": 1047,
     "wins": 521,
-    "losses": 524,
-    "winRate": 49.86,
+    "losses": 526,
+    "winRate": 49.76,
     "ranked": {
-      "matches": 889,
-      "winRate": 49.61
+      "matches": 891,
+      "winRate": 49.49
     },
     "roles": {
       "core": 67,
@@ -183,8 +183,8 @@
     "lobby": [
       {
         "name": "Рейтинговые",
-        "matches": 889,
-        "winRate": 49.61
+        "matches": 891,
+        "winRate": 49.49
       },
       {
         "name": "Обычные",
@@ -195,8 +195,8 @@
     "mode": [
       {
         "name": "All Pick",
-        "matches": 891,
-        "winRate": 49.61
+        "matches": 893,
+        "winRate": 49.5
       },
       {
         "name": "Другие",
@@ -212,8 +212,8 @@
       },
       {
         "name": "Тьма",
-        "matches": 504,
-        "winRate": 49.01
+        "matches": 506,
+        "winRate": 48.81
       }
     ],
     "region": [
