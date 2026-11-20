@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-11-19T20:41:37.554Z",
+  "updatedAt": "2026-11-20T07:22:28.333Z",
   "sources": {
     "opendota": {
       "ok": true,
-      "updatedAt": "2026-11-19T20:41:37.553Z"
+      "updatedAt": "2026-11-20T07:22:28.332Z"
     },
     "steam": {
       "ok": true,
-      "updatedAt": "2026-11-19T20:41:35.670Z"
+      "updatedAt": "2026-11-20T07:22:27.580Z"
     }
   },
   "profile": {
@@ -299,18 +299,18 @@
         "lane": "Сложная линия"
       },
       {
-        "name": "Ursa",
+        "name": "Morphling",
         "matches": 21,
-        "winRate": 61.9,
-        "kda": 3.08,
+        "winRate": 47.62,
+        "kda": 2.76,
         "role": "core",
         "lane": "Средняя линия"
       },
       {
-        "name": "Morphling",
-        "matches": 20,
-        "winRate": 50,
-        "kda": 2.93,
+        "name": "Ursa",
+        "matches": 21,
+        "winRate": 61.9,
+        "kda": 3.08,
         "role": "core",
         "lane": "Средняя линия"
       }
