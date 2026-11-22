@@ -1,14 +1,14 @@
 {
-  "updatedAt": "2026-11-21T19:21:05.488Z",
+  "updatedAt": "2026-11-22T06:56:21.388Z",
   "sources": {
     "opendota": {
       "ok": false,
       "updatedAt": "2026-11-21T07:15:31.138Z",
-      "error": "HTTP 500 https://api.opendota.com/api/players/485728236/wl {\"error\":\"Internal Server Error\"}"
+      "error": "The operation was aborted due to timeout"
     },
     "steam": {
       "ok": true,
-      "updatedAt": "2026-11-21T19:21:00.809Z"
+      "updatedAt": "2026-11-22T06:55:26.882Z"
     }
   },
   "profile": {
