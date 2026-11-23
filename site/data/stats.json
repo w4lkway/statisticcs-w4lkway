@@ -1,14 +1,13 @@
 {
-  "updatedAt": "2026-11-22T19:44:58.006Z",
+  "updatedAt": "2026-11-23T07:45:25.995Z",
   "sources": {
     "opendota": {
-      "ok": false,
-      "updatedAt": "2026-11-21T07:15:31.138Z",
-      "error": "HTTP 500 https://api.opendota.com/api/players/485728236/wl {\"error\":\"Internal Server Error\"}"
+      "ok": true,
+      "updatedAt": "2026-11-23T07:45:25.994Z"
     },
     "steam": {
       "ok": true,
-      "updatedAt": "2026-11-22T19:44:32.968Z"
+      "updatedAt": "2026-11-23T07:44:36.976Z"
     }
   },
   "profile": {
