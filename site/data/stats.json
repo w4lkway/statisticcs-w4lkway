@@ -1,13 +1,14 @@
 {
-  "updatedAt": "2026-11-23T23:57:07.119Z",
+  "updatedAt": "2026-11-24T09:59:10.151Z",
   "sources": {
     "opendota": {
-      "ok": true,
-      "updatedAt": "2026-11-23T23:57:07.119Z"
+      "ok": false,
+      "updatedAt": "2026-11-23T23:57:07.119Z",
+      "error": "HTTP 522 https://api.opendota.com/api/players/485728236/wl {\"type\":\"https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-5xx-errors/error-522/\",\"title\":\"Error 522: Co"
     },
     "steam": {
       "ok": true,
-      "updatedAt": "2026-11-23T23:57:06.352Z"
+      "updatedAt": "2026-11-24T09:58:26.760Z"
     }
   },
   "profile": {
