@@ -1,14 +1,13 @@
 {
-  "updatedAt": "2026-11-24T09:59:10.151Z",
+  "updatedAt": "2026-11-24T22:30:01.227Z",
   "sources": {
     "opendota": {
-      "ok": false,
-      "updatedAt": "2026-11-23T23:57:07.119Z",
-      "error": "HTTP 522 https://api.opendota.com/api/players/485728236/wl {\"type\":\"https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-5xx-errors/error-522/\",\"title\":\"Error 522: Co"
+      "ok": true,
+      "updatedAt": "2026-11-24T22:30:01.226Z"
     },
     "steam": {
       "ok": true,
-      "updatedAt": "2026-11-24T09:58:26.760Z"
+      "updatedAt": "2026-11-24T22:30:00.703Z"
     }
   },
   "profile": {
@@ -169,13 +168,13 @@
   },
   "dota": {
     "profileName": "211",
-    "matches": 1047,
+    "matches": 1049,
     "wins": 521,
-    "losses": 526,
-    "winRate": 49.76,
+    "losses": 528,
+    "winRate": 49.67,
     "ranked": {
-      "matches": 891,
-      "winRate": 49.49
+      "matches": 893,
+      "winRate": 49.38
     },
     "roles": {
       "core": 67,
@@ -184,8 +183,8 @@
     "lobby": [
       {
         "name": "Рейтинговые",
-        "matches": 891,
-        "winRate": 49.49
+        "matches": 893,
+        "winRate": 49.38
       },
       {
         "name": "Обычные",
@@ -196,8 +195,8 @@
     "mode": [
       {
         "name": "All Pick",
-        "matches": 893,
-        "winRate": 49.5
+        "matches": 895,
+        "winRate": 49.39
       },
       {
         "name": "Другие",
@@ -208,13 +207,13 @@
     "side": [
       {
         "name": "Свет",
-        "matches": 541,
-        "winRate": 50.65
+        "matches": 542,
+        "winRate": 50.55
       },
       {
         "name": "Тьма",
-        "matches": 506,
-        "winRate": 48.81
+        "matches": 507,
+        "winRate": 48.72
       }
     ],
     "region": [
@@ -261,17 +260,17 @@
       },
       {
         "name": "Phantom Assassin",
-        "matches": 32,
-        "winRate": 50,
-        "kda": 2.45,
+        "matches": 33,
+        "winRate": 48.48,
+        "kda": 2.38,
         "role": "core",
         "lane": "Лёгкая линия"
       },
       {
         "name": "Phantom Lancer",
-        "matches": 31,
-        "winRate": 54.84,
-        "kda": 2.71,
+        "matches": 32,
+        "winRate": 53.13,
+        "kda": 2.65,
         "role": "core",
         "lane": "Лёгкая линия"
       },
