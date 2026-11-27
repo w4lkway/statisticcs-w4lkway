@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-11-27T08:41:06.632Z",
+  "updatedAt": "2026-11-27T21:21:44.750Z",
   "sources": {
     "opendota": {
       "ok": true,
-      "updatedAt": "2026-11-27T08:41:06.631Z"
+      "updatedAt": "2026-11-27T21:21:44.750Z"
     },
     "steam": {
       "ok": true,
-      "updatedAt": "2026-11-27T08:41:05.932Z"
+      "updatedAt": "2026-11-27T21:21:44.073Z"
     }
   },
   "profile": {
@@ -17,7 +17,7 @@
   },
   "cs2": {
     "steam": {
-      "name": "xanny man",
+      "name": "w4lkway",
       "steamId": "76561198445993964",
       "level": 32,
       "accountAgeYears": 9,
